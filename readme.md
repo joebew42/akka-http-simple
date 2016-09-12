@@ -37,3 +37,9 @@ $ curl http://localhost:8080/values/im/exists
 ```
 $ sbt test
 ```
+
+## Reference projects
+
+* [akka-http-rest](https://github.com/ArchDev/akka-http-rest)
+* [akkaRestApi](https://github.com/BBartosz/akkaRestApi) and [blog post](http://www.bbartosz.com/blog/2015/12/14/akka-http-rest-api/)
+* [akka-http-microservice](https://github.com/theiterators/akka-http-microservice)
