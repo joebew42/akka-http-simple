@@ -1,4 +1,4 @@
-package com.restapp.http
+package com.restapp.infrastructure.utils
 
 import org.flywaydb.core.Flyway
 

@@ -3,8 +3,8 @@ package com.restapp.http
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import com.restapp.http.routers.{HelloRouter, UsersRouter, ContentsRouter}
-import com.restapp.infrastructure.utils.Config
+import com.restapp.http.routers.{ContentsRouter, HelloRouter, UsersRouter}
+import com.restapp.infrastructure.utils.{Config, DatabaseMigration}
 import com.restapp.infrastructure._
 
 import scala.io.StdIn
