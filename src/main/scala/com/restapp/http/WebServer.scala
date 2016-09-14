@@ -5,7 +5,7 @@ import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import com.restapp.http.routers.{HelloRouter, UsersRouter, ValuesRouter}
 import com.restapp.infrastructure.utils.Config
-import com.restapp.infrastructure.{FakeUserRepository, InMemoryValueRepository, SlickDatabase, SlickValueRepository}
+import com.restapp.infrastructure._
 
 import scala.io.StdIn
 
@@ -23,7 +23,7 @@ object WebServer extends Config {
 
     val slickDatabase = new SlickDatabase()
     val valueRepository = new SlickValueRepository(slickDatabase)
-    val valuesRouter = new ValuesRouter(valueRepository)
+    val valuesRouter = new ValuesRouter(valueRepository, new InMemoryAuthorizationService())
 
     val application = new Application(helloRouter, usersRouter, valuesRouter)
 
