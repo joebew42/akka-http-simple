@@ -22,7 +22,7 @@ docker rm -f postgresql
 **run application**
 
 ```
-$ sbt "run-main com.restapp.http.WebServer"
+$ sbt "run-main com.restapp.http.Main"
 ```
 
 **some curls**

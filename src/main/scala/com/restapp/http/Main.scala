@@ -9,7 +9,7 @@ import com.restapp.infrastructure._
 
 import scala.io.StdIn
 
-object WebServer extends Config {
+object Main extends Config {
   def main(args: Array[String]) {
     val dbMigration = new DatabaseMigration(databaseUrl, databaseUser, databasePassword)
     dbMigration.migrate()
