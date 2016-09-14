@@ -2,16 +2,16 @@ package com.restapp.http
 
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import com.restapp.domain.{AuthorizationService, Content, ContentRepository}
-import com.restapp.http.routers.ValuesRouter
+import com.restapp.http.routers.ContentsRouter
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 
 import scala.concurrent.Future
 
-class ValuesRouterSpec extends RouterSpec with MockitoSugar {
+class ContentsRouterSpec extends RouterSpec with MockitoSugar {
   val repository = mock[ContentRepository]
   val authorizationService = mock[AuthorizationService]
-  val router = new ValuesRouter(repository, authorizationService)
+  val router = new ContentsRouter(repository, authorizationService)
 
   val routes = router.routes
 

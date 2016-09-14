@@ -6,7 +6,7 @@ import akka.http.scaladsl.server.Directives._
 import com.restapp.domain.{AuthorizationService, ContentRepository}
 import com.restapp.http.{Rejections, Serializers}
 
-class ValuesRouter(repository: ContentRepository, authorizationService: AuthorizationService) extends Serializers with Rejections {
+class ContentsRouter(repository: ContentRepository, authorizationService: AuthorizationService) extends Serializers with Rejections {
   def authorize: Directive0 = {
     headerValueByName("Token").flatMap { token =>
       onSuccess(authorizationService.isAuthorized(token)).flatMap {
