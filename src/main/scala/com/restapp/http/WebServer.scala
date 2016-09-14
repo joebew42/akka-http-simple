@@ -18,14 +18,7 @@ object WebServer extends Config {
     implicit val materializer = ActorMaterializer()
     implicit val executionContext = system.dispatcher
 
-    val helloRouter = new HelloRouter()
-    val usersRouter = new UsersRouter(new FakeUserRepository())
-
-    val slickDatabase = new SlickDatabase()
-    val valueRepository = new SlickContentRepository(slickDatabase)
-    val valuesRouter = new ContentsRouter(valueRepository, new InMemoryAuthorizationService())
-
-    val application = new Application(helloRouter, usersRouter, valuesRouter)
+    val application: Application = buildApplication
 
     val bindingFuture = Http().bindAndHandle(application.routes, httpInterface, httpPort)
 
@@ -34,5 +27,16 @@ object WebServer extends Config {
     bindingFuture
       .flatMap(_.unbind())
       .onComplete(_ => system.terminate())
+  }
+
+  def buildApplication: Application = {
+    val helloRouter = new HelloRouter()
+    val usersRouter = new UsersRouter(new FakeUserRepository())
+
+    val slickDatabase = new SlickDatabase()
+    val valueRepository = new SlickContentRepository(slickDatabase)
+    val valuesRouter = new ContentsRouter(valueRepository, new InMemoryAuthorizationService())
+
+    return new Application(helloRouter, usersRouter, valuesRouter)
   }
 }
