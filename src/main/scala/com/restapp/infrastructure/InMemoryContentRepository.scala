@@ -1,11 +1,11 @@
 package com.restapp.infrastructure
 
-import com.restapp.domain.{Value, ValueRepository}
+import com.restapp.domain.{Value, ContentRepository}
 
 import scala.collection.immutable.HashMap
 import scala.concurrent.Future
 
-class InMemoryValueRepository() extends ValueRepository {
+class InMemoryContentRepository() extends ContentRepository {
   val values = HashMap(
     "im/exists" -> "[\"one\", \"two\", \"three\"]\n",
     "other/path" -> "a content with random values\nnew line\n"

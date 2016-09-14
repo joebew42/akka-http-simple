@@ -1,10 +1,10 @@
 package com.restapp.infrastructure
 
-import com.restapp.domain.{Value, ValueRepository}
+import com.restapp.domain.{Value, ContentRepository}
 
 import scala.concurrent.Future
 
-class SlickValueRepository(val slickDatabase: SlickDatabase) extends ValueRepository {
+class SlickContentRepository(val slickDatabase: SlickDatabase) extends ContentRepository {
 
   import slickDatabase._
   import slickDatabase.driver.api._

@@ -1,7 +1,7 @@
 package com.restapp.http
 
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
-import com.restapp.domain.{AuthorizationService, Value, ValueRepository}
+import com.restapp.domain.{AuthorizationService, Value, ContentRepository}
 import com.restapp.http.routers.ValuesRouter
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
@@ -9,7 +9,7 @@ import org.scalatest.mockito.MockitoSugar
 import scala.concurrent.Future
 
 class ValuesRouterSpec extends RouterSpec with MockitoSugar {
-  val repository = mock[ValueRepository]
+  val repository = mock[ContentRepository]
   val authorizationService = mock[AuthorizationService]
   val router = new ValuesRouter(repository, authorizationService)
 
@@ -31,7 +31,7 @@ class ValuesRouterSpec extends RouterSpec with MockitoSugar {
       status shouldBe StatusCodes.NotFound
     }
   }
-
+1
   "returns 401 when user is not authorized to create a value" in {
     when(authorizationService.isAuthorized("unauthorized_token")).thenReturn(Future(Some(false)))
 
