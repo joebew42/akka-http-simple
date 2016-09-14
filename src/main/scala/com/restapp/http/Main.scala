@@ -34,9 +34,9 @@ object Main extends Config {
     val usersRouter = new UsersRouter(new FakeUserRepository())
 
     val slickDatabase = new SlickDatabase()
-    val valueRepository = new SlickContentRepository(slickDatabase)
-    val valuesRouter = new ContentsRouter(valueRepository, new InMemoryAuthorizationService())
+    val contentRepository = new SlickContentRepository(slickDatabase)
+    val contentsRouter = new ContentsRouter(contentRepository, new InMemoryAuthorizationService())
 
-    return new Application(helloRouter, usersRouter, valuesRouter)
+    return new Application(helloRouter, usersRouter, contentsRouter)
   }
 }
