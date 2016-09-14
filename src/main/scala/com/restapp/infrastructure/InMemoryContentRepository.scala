@@ -1,6 +1,6 @@
 package com.restapp.infrastructure
 
-import com.restapp.domain.{Value, ContentRepository}
+import com.restapp.domain.{Content, ContentRepository}
 
 import scala.collection.immutable.HashMap
 import scala.concurrent.Future
@@ -11,8 +11,8 @@ class InMemoryContentRepository() extends ContentRepository {
     "other/path" -> "a content with random values\nnew line\n"
   )
 
-  override def findByKey(key: String): Future[Option[Value]] = {
-    val value = Value(Some(key), values.getOrElse(key, ""))
+  override def findByKey(key: String): Future[Option[Content]] = {
+    val value = Content(Some(key), values.getOrElse(key, ""))
     Future.successful(Some(value))
   }
 }

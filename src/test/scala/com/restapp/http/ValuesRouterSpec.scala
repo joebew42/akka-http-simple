@@ -1,7 +1,7 @@
 package com.restapp.http
 
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
-import com.restapp.domain.{AuthorizationService, Value, ContentRepository}
+import com.restapp.domain.{AuthorizationService, Content, ContentRepository}
 import com.restapp.http.routers.ValuesRouter
 import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
@@ -16,7 +16,7 @@ class ValuesRouterSpec extends RouterSpec with MockitoSugar {
   val routes = router.routes
 
   "retrieves a value" in {
-    val value = Value(Some("\"path/for/value\""), "a value")
+    val value = Content(Some("\"path/for/value\""), "a value")
     when(repository.findByKey("path/for/value")).thenReturn(Future(Some(value)))
 
     Get("/values/path/for/value") ~> routes ~> check {
