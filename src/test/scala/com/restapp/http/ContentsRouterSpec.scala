@@ -1,5 +1,6 @@
 package com.restapp.http
 
+import akka.http.scaladsl.model.headers.RawHeader
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import com.restapp.domain.{AuthorizationService, Content, ContentRepository}
 import com.restapp.http.routers.ContentsRouter
@@ -31,20 +32,24 @@ class ContentsRouterSpec extends RouterSpec with MockitoSugar {
       status shouldBe StatusCodes.NotFound
     }
   }
-1
+
   "returns 401 when user is not authorized to create a value" in {
     when(authorizationService.isAuthorized("unauthorized_token")).thenReturn(Future(Some(false)))
 
-    Post("/values/path/for/value") ~> addHeader("Token", "unauthorized_token") ~> routes ~> check {
+    Post("/values/path/for/value")
+      .withHeaders(RawHeader("Token", "unauthorized_token")) ~> routes ~> check {
+
       status shouldBe StatusCodes.Unauthorized
     }
   }
 
   "creates a new value" in {
     when(authorizationService.isAuthorized("authorized_token")).thenReturn(Future(Some(true)))
-    val body = HttpEntity(ContentTypes.`text/plain(UTF-8)`, "a value")
+    val requestBody = HttpEntity(ContentTypes.`text/plain(UTF-8)`, "a value")
 
-    Post("/values/path/for/value", body) ~> addHeader("Token", "authorized_token") ~> routes ~> check {
+    Post("/values/path/for/value", requestBody)
+      .withHeaders(RawHeader("Token", "authorized_token")) ~> routes ~> check {
+
       status shouldBe StatusCodes.Created
       responseAs[String] shouldBe "a value"
     }
