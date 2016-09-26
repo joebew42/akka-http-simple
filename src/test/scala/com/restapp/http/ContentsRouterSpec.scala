@@ -16,7 +16,7 @@ class ContentsRouterSpec extends RouterSpec with MockitoSugar {
 
   val routes = router.routes
 
-  "retrieves a value" in {
+  it should "retrieves a value" in {
     val value = Content(Some("\"path/for/value\""), "a value")
     when(repository.findByKey("path/for/value")).thenReturn(Future(Some(value)))
 
@@ -25,7 +25,7 @@ class ContentsRouterSpec extends RouterSpec with MockitoSugar {
     }
   }
 
-  "returns 404 when value is not found" in {
+  it should "returns 404 when value is not found" in {
     when(repository.findByKey("path/for/value")).thenReturn(Future(None))
 
     Get("/values/path/for/value") ~> routes ~> check {
@@ -33,7 +33,7 @@ class ContentsRouterSpec extends RouterSpec with MockitoSugar {
     }
   }
 
-  "returns 401 when user is not authorized to create a value" in {
+  it should "returns 401 when user is not authorized to create a value" in {
     when(authorizationService.isAuthorized("unauthorized_token")).thenReturn(Future(Some(false)))
 
     Post("/values/path/for/value")
@@ -43,7 +43,7 @@ class ContentsRouterSpec extends RouterSpec with MockitoSugar {
     }
   }
 
-  "creates a new value" in {
+  it should "creates a new value" in {
     when(authorizationService.isAuthorized("authorized_token")).thenReturn(Future(Some(true)))
     val requestBody = HttpEntity(ContentTypes.`text/plain(UTF-8)`, "a value")
 

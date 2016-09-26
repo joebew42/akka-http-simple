@@ -13,7 +13,7 @@ class UsersRouterSpec extends RouterSpec with MockitoSugar {
 
   val routes = usersRouter.routes
 
-  "retrieve users list" in {
+  it should "retrieve users list" in {
     when(repository.findAll()).thenReturn(Future(List(User("joe"))))
 
     Get("/users") ~> routes ~> check {
